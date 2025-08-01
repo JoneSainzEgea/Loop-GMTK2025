@@ -17,7 +17,7 @@ public class ObstacleCollider : MonoBehaviour
 
     public void Initialize(Obstacle data)
     {
-        startPosition = data.initialColliderPosition;
+        startPosition = data.initialPosCollider;
         endPosition = startPosition + Vector2.up * distanceUp;
 
         duration = data.duration;
@@ -29,6 +29,7 @@ public class ObstacleCollider : MonoBehaviour
 
         timer += Time.deltaTime;
         float t = Mathf.Clamp01(timer / duration);
+
         transform.position = Vector3.Lerp(startPosition, endPosition, t);
 
         if (t >= 1f)

@@ -2,15 +2,12 @@
 // 31/07/2025
     // Simulates obstacle trajectory
 
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObstacleSprite : MonoBehaviour
 {
-    private Vector2 startPosition;
-    private Vector2 endPosition;
+    private SpriteCurve curve;
+    
     private Vector2 initialScale;
     private Vector2 finalScale;
 
@@ -19,9 +16,8 @@ public class ObstacleSprite : MonoBehaviour
 
     public void Initialize(Obstacle data)
     {
-        startPosition = data.initialObjectPosition;
-        endPosition = data.finalObjectPosition;
         duration = data.duration;
+        curve = data.curve;
 
         finalScale = transform.localScale;
         initialScale = transform.localScale/10f;
@@ -33,12 +29,17 @@ public class ObstacleSprite : MonoBehaviour
 
         timer += Time.deltaTime;
         float t = Mathf.Clamp01(timer / duration);
-        transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+        float x = curve.curveX.Evaluate(t);
+        float y = curve.curveY.Evaluate(t);
+
+        transform.position = curve.startPosition + new Vector2(x, y);
+
         transform.localScale = Vector3.Lerp(initialScale, finalScale, t);
 
         if (t >= 1f)
         {
-            Destroy(transform.root.gameObject); // Destruye todo el obstáculo cuando termina
+            Destroy(transform.root.gameObject);
         }
     }
 }

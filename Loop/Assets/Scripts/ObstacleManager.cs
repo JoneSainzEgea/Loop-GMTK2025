@@ -12,8 +12,9 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float obstacleSpeed = 5f;
     [SerializeField] private float obstacleDistance = 7f;
-    [SerializeField] private Transform[] initialPositionsObject;
-    [SerializeField] private Transform[] finalPositionsObject;
+    [SerializeField] private SpriteCurve[] curves;
+    //[SerializeField] private Transform[] initialPositionsSprite;
+    //[SerializeField] private Transform[] finalPositionsSprite;
     [SerializeField] private Transform[] startPositionsCollider;
 
     private float obstacleDuration;
@@ -39,7 +40,7 @@ public class ObstacleManager : MonoBehaviour
 
         GameObject obj = Instantiate(obstaclePrefab, new Vector3(12f, 0f, 0f), Quaternion.identity);
 
-        Obstacle data = new Obstacle(initialPositionsObject[i].position, finalPositionsObject[i].position, startPositionsCollider[i].position, obstacleDuration);
+        Obstacle data = new Obstacle(curves[i], startPositionsCollider[i].position, obstacleDuration);
 
         ObstacleCollider collider = obj.GetComponentInChildren<ObstacleCollider>();
             collider.Initialize(data);
