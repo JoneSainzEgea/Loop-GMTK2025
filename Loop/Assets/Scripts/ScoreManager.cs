@@ -14,6 +14,21 @@ public class ScoreManager : MonoBehaviour
     private float scoreMultiplier = 1f;
     [SerializeField] private TextMeshProUGUI scoreText;
 
+    public static ScoreManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Update()
     {
         score += baseIncreaseRate * scoreMultiplier * Time.deltaTime;
@@ -28,6 +43,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SubtractPoints(float amount)
     {
+        // TODO: change text color
         score -= amount;
         if (score < 0f) score = 0f;
         UpdateScoreText();

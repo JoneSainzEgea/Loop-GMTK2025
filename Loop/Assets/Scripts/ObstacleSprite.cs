@@ -1,26 +1,30 @@
 // Jone Sainz Egea
-// 01/08/2025
-    // Simulates obstacle collider trajectory
+// 31/07/2025
+    // Simulates obstacle trajectory
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObstacleCollider : MonoBehaviour
+public class ObstacleSprite : MonoBehaviour
 {
     private Vector2 startPosition;
     private Vector2 endPosition;
-    [SerializeField] private float distanceUp;
+    private Vector2 initialScale;
+    private Vector2 finalScale;
 
     private float duration;
     private float timer = 0f;
 
     public void Initialize(Obstacle data)
     {
-        startPosition = data.initialColliderPosition;
-        endPosition = startPosition + Vector2.up * distanceUp;
-
+        startPosition = data.initialObjectPosition;
+        endPosition = data.finalObjectPosition;
         duration = data.duration;
+
+        finalScale = transform.localScale;
+        initialScale = transform.localScale/10f;
     }
 
     void Update()
@@ -30,19 +34,11 @@ public class ObstacleCollider : MonoBehaviour
         timer += Time.deltaTime;
         float t = Mathf.Clamp01(timer / duration);
         transform.position = Vector3.Lerp(startPosition, endPosition, t);
+        transform.localScale = Vector3.Lerp(initialScale, finalScale, t);
 
         if (t >= 1f)
         {
-            Destroy(transform.gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if ((collision.CompareTag("Player")))
-        {
-            Debug.Log("Player hit");
-            ScoreManager.instance.SubtractPoints(20f);
+            Destroy(transform.root.gameObject); // Destruye todo el obstáculo cuando termina
         }
     }
 }
