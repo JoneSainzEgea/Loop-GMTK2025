@@ -20,11 +20,23 @@ public class CharacterController : MonoBehaviour
     private float groundCheckRadius = 0.1f;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private bool isGrounded;
+
+    private void OnEnable()
+    {
+        ObstacleCollider.OnPlayerHit += PlayHitAnimation;
+    }
+
+    private void OnDisable()
+    {
+        ObstacleCollider.OnPlayerHit -= PlayHitAnimation;
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -55,15 +67,20 @@ public class CharacterController : MonoBehaviour
     {
         posNumber = Mathf.Clamp(posNumber, 0, 2);
         // TODO: slide sound
-        // TODO: slide animation
+        anim.SetTrigger("slide");
         transform.position = new Vector2 (positions[posNumber].position.x, transform.position.y);
     }
 
     private void Jump()
     {
         // TODO: jump sound
-        // TODO: jump animation
+        anim.SetTrigger("jump");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+    }
+
+    private void PlayHitAnimation()
+    {
+        anim.SetTrigger("hit");
     }
 
     private void AdjustGravity()
