@@ -67,9 +67,9 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreText();
     }
 
-    public void IncreaseMultiplier(float amount)
+    public void SetScoreMultiplier(float multiplier)
     {
-        scoreMultiplier += amount;
+        scoreMultiplier = multiplier;
     }
 
     private void UpdateScoreText()
@@ -80,6 +80,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
     #endregion
+
     #region Hearts
     public void SubstractHearts(int amount = 1)
     {

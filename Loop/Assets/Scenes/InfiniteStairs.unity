@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 4680131568196924483, guid: c79edbb765778e544b6df3a28548a5f5, type: 3}
-  spawnInterval: 2
   obstacleSpeed: 4
   obstacleDistance: 7
   curves:
@@ -1615,6 +1614,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1091312493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091312495}
+  - component: {fileID: 1091312494}
+  m_Layer: 0
+  m_Name: DifficultyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1091312494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091312493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13274d98a100e3144aae91fbf2dd84b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficultyLevels:
+  - minSpawnInterval: 5
+    maxSpawnInterval: 7
+    obstacleSpeed: 3
+    stairsAnimationSpeed: 1
+    characterAnimationSpeed: 1
+    scoreMultiplier: 1
+  - minSpawnInterval: 3
+    maxSpawnInterval: 6
+    obstacleSpeed: 3
+    stairsAnimationSpeed: 1
+    characterAnimationSpeed: 1
+    scoreMultiplier: 1
+  - minSpawnInterval: 3
+    maxSpawnInterval: 6
+    obstacleSpeed: 5
+    stairsAnimationSpeed: 1.25
+    characterAnimationSpeed: 1.25
+    scoreMultiplier: 1.25
+  - minSpawnInterval: 1
+    maxSpawnInterval: 4
+    obstacleSpeed: 5
+    stairsAnimationSpeed: 1.25
+    characterAnimationSpeed: 1.25
+    scoreMultiplier: 1.25
+  - minSpawnInterval: 1
+    maxSpawnInterval: 4
+    obstacleSpeed: 7
+    stairsAnimationSpeed: 1.5
+    characterAnimationSpeed: 1.5
+    scoreMultiplier: 1.5
+--- !u!4 &1091312495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091312493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.99415773, y: -0.31630844, z: -0.059689607}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1094395835
 GameObject:
   m_ObjectHideFlags: 0
@@ -2519,6 +2593,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1256665394}
+  - {fileID: 1091312495}
   - {fileID: 1029066690}
   - {fileID: 49434916}
   - {fileID: 519420032}
