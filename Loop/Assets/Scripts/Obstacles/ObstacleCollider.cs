@@ -43,6 +43,7 @@ public class ObstacleCollider : MonoBehaviour
         if ((collision.CompareTag("Player")))
         {
             Debug.Log("Player hit");
+            ScoreManager.instance.SubstractHearts();
             ScoreManager.instance.SubtractPoints(20f);
         }
     }

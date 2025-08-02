@@ -1,6 +1,8 @@
 // Jone Sainz Egea
 // 31/07/2025
     // Singleton structure
+// 02/08/2025
+    // Game over added
 
 using System.Collections;
 using System.Collections.Generic;
@@ -21,5 +23,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game over");
     }
 }

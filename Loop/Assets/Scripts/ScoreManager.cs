@@ -1,20 +1,31 @@
 // Jone Sainz Egea
 // 31/07/2025
     // Score goes up with time and shows in screen
+// 02/08/2025
+    // Hearts management added
 
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance;
+
+    // Score
     public float score { get; private set; } = 0f;
     [SerializeField] private float baseIncreaseRate = 1f;
     private float scoreMultiplier = 1f;
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    public static ScoreManager instance;
+    // Hearts
+    [SerializeField] private int totalHearts = 3;
+    public static int currentHearts;
+    [SerializeField] private List<Image> heartImages;
+    [SerializeField] private Sprite fullHeartSprite;
+    [SerializeField] private Sprite emptyHeartSprite;
 
     private void Awake()
     {
@@ -29,12 +40,19 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        currentHearts = totalHearts;
+        UpdateHeartsDisplay();
+    }
+
     void Update()
     {
         score += baseIncreaseRate * scoreMultiplier * Time.deltaTime;
         UpdateScoreText();
     }
 
+    #region Points
     public void AddPoints(float amount)
     {
         score += amount;
@@ -61,4 +79,31 @@ public class ScoreManager : MonoBehaviour
             scoreText.text = $"Score: {Mathf.FloorToInt(score)}";
         }
     }
+    #endregion
+    #region Hearts
+    public void SubstractHearts(int amount = 1)
+    {
+        currentHearts -= amount;
+        currentHearts = Mathf.Clamp(currentHearts, 0, totalHearts);
+
+        if (currentHearts <= 0)
+        {
+            GameManager.instance.GameOver();
+            return;
+        }
+
+        UpdateHeartsDisplay();
+    }
+
+    private void UpdateHeartsDisplay()
+    {
+        for (int i = 0; i < heartImages.Count; i++)
+        {
+            if (i < currentHearts)
+                heartImages[i].sprite = fullHeartSprite;
+            else
+                heartImages[i].sprite = emptyHeartSprite;
+        }
+    }
+    #endregion
 }

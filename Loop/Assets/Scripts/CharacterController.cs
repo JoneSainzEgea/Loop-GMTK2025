@@ -32,17 +32,17 @@ public class CharacterController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // TODO: make it work with WASD, INTRO SPACE AND NUM
-        if (Input.GetKeyDown("right"))
+        if (Input.GetKeyDown("right") || Input.GetKeyDown(KeyCode.D))
         {
             posNumber++;
             Move();
         }
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKeyDown("left") || Input.GetKeyDown(KeyCode.A))
         {
             posNumber--;
             Move();
         }
-        if (Input.GetKeyDown("up"))
+        if (Input.GetKeyDown("up") || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             if(isGrounded)
                 Jump();
