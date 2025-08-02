@@ -1552,6 +1552,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1029138703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029138705}
+  - component: {fileID: 1029138704}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1029138704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029138703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767064e5a4528334184d4f740ca39aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Jump
+    clip: {fileID: 8300000, guid: 6ffba926babde7c4ca4e8c88250669ad, type: 3}
+    volume: 0.5
+    tone: 1
+    loop: 0
+    stopsOtherSounds: 0
+    source: {fileID: 0}
+  - name: Slide
+    clip: {fileID: 8300000, guid: f08a2b5eab0ba924b813da49c20e199d, type: 3}
+    volume: 0.441
+    tone: 0.84
+    loop: 0
+    stopsOtherSounds: 0
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: e160a7b046925bb44bf30046865fa030, type: 3}
+    volume: 0.5
+    tone: 1
+    loop: 0
+    stopsOtherSounds: 0
+    source: {fileID: 0}
+--- !u!4 &1029138705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029138703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.41936916, y: -0.14515428, z: 0.091227055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1069150886
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,6 +2682,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1256665394}
+  - {fileID: 1029138705}
   - {fileID: 1091312495}
   - {fileID: 1029066690}
   - {fileID: 49434916}

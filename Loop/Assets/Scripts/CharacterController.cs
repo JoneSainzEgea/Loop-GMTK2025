@@ -66,20 +66,22 @@ public class CharacterController : MonoBehaviour
     private void Move()
     {
         posNumber = Mathf.Clamp(posNumber, 0, 2);
-        // TODO: slide sound
+        AudioManager.instance.Play("Slide");
+        // TODO: change orentation depending on side
         anim.SetTrigger("slide");
         transform.position = new Vector2 (positions[posNumber].position.x, transform.position.y);
     }
 
     private void Jump()
     {
-        // TODO: jump sound
+        AudioManager.instance.Play("Jump");
         anim.SetTrigger("jump");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     private void PlayHitAnimation()
     {
+        AudioManager.instance.Play("Hit");
         anim.SetTrigger("hit");
     }
 
