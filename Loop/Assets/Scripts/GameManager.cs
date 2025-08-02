@@ -7,10 +7,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    [SerializeField] private GameObject gameOverPanel;
 
     private void Awake()
     {
@@ -25,8 +29,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
     public void GameOver()
     {
         Debug.Log("Game over");
+        gameOverPanel.SetActive(true);
     }
 }
