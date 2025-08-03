@@ -14,6 +14,16 @@ public class DifficulyManager : MonoBehaviour
     private int currentLevelIndex = 0;
     public DifficultyLevel CurrentDifficulty => difficultyLevels[currentLevelIndex];
 
+    private void OnEnable()
+    {
+        GameManager.OnRetry += Restart;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRetry -= Restart;
+    }
+
     private void Start()
     {
         ApplyDifficulty();
@@ -48,5 +58,13 @@ public class DifficulyManager : MonoBehaviour
         // TODO: AnimationManager.instance.SetGlobalAnimationSpeed(level.animationSpeed);
 
         ScoreManager.instance.SetScoreMultiplier(level.scoreMultiplier);
+    }
+
+    private void Restart()
+    {
+        StopCoroutine(DifficultyProgression());
+        currentLevelIndex = 0;
+        ApplyDifficulty();
+        StartCoroutine(DifficultyProgression());
     }
 }
