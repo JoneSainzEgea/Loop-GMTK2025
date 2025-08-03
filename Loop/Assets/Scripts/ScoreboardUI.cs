@@ -15,7 +15,6 @@ public class ScoreboardUI : MonoBehaviour
 
     private void Start()
     {
-        scoreBoardPanel.SetActive(false);
         saveButton.onClick.AddListener(SaveScore);
     }
 
@@ -23,7 +22,12 @@ public class ScoreboardUI : MonoBehaviour
     {
         latestScore = score;
         latestScoreText.text = "Score: " + latestScore;
-        nameInputField.text = "";
+
+        // nameInputField.text = "";
+        nameInputField.interactable = true;
+        saveButton.interactable = true;
+        nameInputField.ActivateInputField();
+
         DisplayScores();
     }
 
@@ -32,9 +36,9 @@ public class ScoreboardUI : MonoBehaviour
         string playerName = nameInputField.text.Trim();
         if (string.IsNullOrEmpty(playerName)) return;
 
-        int score = Mathf.FloorToInt(latestScore);
-        ScoreboardManager.instance.AddScore(playerName, score);
+        ScoreboardManager.instance.AddScore(playerName, latestScore);
         DisplayScores();
+
         saveButton.interactable = false;
         nameInputField.interactable = false;
     }

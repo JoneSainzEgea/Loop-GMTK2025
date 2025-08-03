@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using System.Linq;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,15 +14,17 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        videoScreen.SetActive(false);      
+        videoScreen.SetActive(false);
+        PlayerPrefs.DeleteAll();
     }
 
     public void StartGame()
     {
-        videoScreen.SetActive(true);
-        videoDuration = (float)player.clip.length;
-        player.Play();
-        StartCoroutine(StartGameAfterVideo());
+        SceneManager.LoadScene(1); // TODO: ESTO FUERA CUANDO HAYA VÍDEO
+        //videoScreen.SetActive(true);
+        //videoDuration = (float)player.clip.length;
+        //player.Play();
+        //StartCoroutine(StartGameAfterVideo());
     }
 
     IEnumerator StartGameAfterVideo()
