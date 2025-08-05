@@ -27,11 +27,13 @@ public class CharacterController : MonoBehaviour
     private void OnEnable()
     {
         ObstacleCollider.OnPlayerHit += PlayHitAnimation;
+        GameManager.OnRetry += StartingPosition;
     }
 
     private void OnDisable()
     {
         ObstacleCollider.OnPlayerHit -= PlayHitAnimation;
+        GameManager.OnRetry += StartingPosition;
     }
 
     void Start()
@@ -99,5 +101,10 @@ public class CharacterController : MonoBehaviour
         {
             rb.gravityScale = lowGravity;
         }
+    }
+
+    private void StartingPosition()
+    {
+        transform.position = positions[1].position;
     }
 }

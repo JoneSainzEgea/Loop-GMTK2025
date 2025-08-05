@@ -54,7 +54,9 @@ public class ObstacleManager : MonoBehaviour
         int i = Random.Range(0, 3);
         obstacleDuration = obstacleDistance/obstacleSpeed;
 
-        GameObject obj = Instantiate(obstaclePrefab, new Vector3(12f, 0f, 0f), Quaternion.identity);
+        GameObject obj = ObstaclePooling.instance.GetObstacle();
+        obj.transform.position = new Vector3(12f, 0f, 0f);
+        obj.transform.rotation = Quaternion.identity;
 
         Obstacle data = new Obstacle(curves[i], startPositionsCollider[i].position, obstacleDuration);
 
