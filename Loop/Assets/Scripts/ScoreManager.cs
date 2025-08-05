@@ -27,6 +27,16 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Sprite fullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
 
+    private void OnEnable()
+    {
+        GameManager.OnRetry += Restart;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRetry -= Restart;
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -67,9 +77,9 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreText();
     }
 
-    public void IncreaseMultiplier(float amount)
+    public void SetScoreMultiplier(float multiplier)
     {
-        scoreMultiplier += amount;
+        scoreMultiplier = multiplier;
     }
 
     private void UpdateScoreText()
@@ -80,19 +90,21 @@ public class ScoreManager : MonoBehaviour
         }
     }
     #endregion
+
     #region Hearts
     public void SubstractHearts(int amount = 1)
     {
         currentHearts -= amount;
         currentHearts = Mathf.Clamp(currentHearts, 0, totalHearts);
 
+        UpdateHeartsDisplay();
+
         if (currentHearts <= 0)
         {
-            GameManager.instance.GameOver();
+            int scoreINT = Mathf.FloorToInt(score);
+            GameManager.instance.GameOver(scoreINT);
             return;
         }
-
-        UpdateHeartsDisplay();
     }
 
     private void UpdateHeartsDisplay()
@@ -104,6 +116,14 @@ public class ScoreManager : MonoBehaviour
             else
                 heartImages[i].sprite = emptyHeartSprite;
         }
+    }
+
+    public void Restart()
+    {
+        currentHearts = totalHearts;
+        UpdateHeartsDisplay();
+        score = 0f;
+        scoreMultiplier = 1f;
     }
     #endregion
 }

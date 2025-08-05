@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CharacterController : MonoBehaviour
 {
@@ -20,11 +21,23 @@ public class CharacterController : MonoBehaviour
     private float groundCheckRadius = 0.1f;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private bool isGrounded;
+
+    private void OnEnable()
+    {
+        ObstacleCollider.OnPlayerHit += PlayHitAnimation;
+    }
+
+    private void OnDisable()
+    {
+        ObstacleCollider.OnPlayerHit -= PlayHitAnimation;
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -54,16 +67,23 @@ public class CharacterController : MonoBehaviour
     private void Move()
     {
         posNumber = Mathf.Clamp(posNumber, 0, 2);
-        // TODO: slide sound
-        // TODO: slide animation
+        AudioManager.instance.Play("Slide");
+        // TODO: change orentation depending on side
+        anim.SetTrigger("slide");
         transform.position = new Vector2 (positions[posNumber].position.x, transform.position.y);
     }
 
     private void Jump()
     {
-        // TODO: jump sound
-        // TODO: jump animation
+        AudioManager.instance.Play("Jump");
+        anim.SetTrigger("jump");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+    }
+
+    private void PlayHitAnimation()
+    {
+        AudioManager.instance.Play("Hit");
+        anim.SetTrigger("hit");
     }
 
     private void AdjustGravity()

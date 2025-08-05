@@ -2,8 +2,7 @@
 // 01/08/2025
     // Simulates obstacle collider trajectory
 
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class ObstacleCollider : MonoBehaviour
@@ -14,6 +13,8 @@ public class ObstacleCollider : MonoBehaviour
 
     private float duration;
     private float timer = 0f;
+
+    public static event Action OnPlayerHit;
 
     public void Initialize(Obstacle data)
     {
@@ -42,7 +43,7 @@ public class ObstacleCollider : MonoBehaviour
     {
         if ((collision.CompareTag("Player")))
         {
-            Debug.Log("Player hit");
+            OnPlayerHit?.Invoke();
             ScoreManager.instance.SubstractHearts();
             ScoreManager.instance.SubtractPoints(20f);
         }
