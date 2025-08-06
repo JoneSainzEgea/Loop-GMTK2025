@@ -12,6 +12,7 @@ public class CharacterController : MonoBehaviour
 {
     private int posNumber = 1;
     [SerializeField] Transform[] positions;
+    private bool isSlidingToLeft = true;
 
     [SerializeField] float jumpForce = 12f;
     [SerializeField] float fallGravity = 6f;
@@ -19,21 +20,21 @@ public class CharacterController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;               
     private float groundCheckRadius = 0.1f;
+    private bool isGrounded;
 
     private Rigidbody2D rb;
     private Animator anim;
-    private bool isGrounded;
 
     private void OnEnable()
     {
         ObstacleCollider.OnPlayerHit += PlayHitAnimation;
-        GameManager.OnRetry += StartingPosition;
+        GameManager.OnRetry += ReturnToStartingPosition;
     }
 
     private void OnDisable()
     {
         ObstacleCollider.OnPlayerHit -= PlayHitAnimation;
-        GameManager.OnRetry += StartingPosition;
+        GameManager.OnRetry += ReturnToStartingPosition;
     }
 
     void Start()
@@ -49,11 +50,21 @@ public class CharacterController : MonoBehaviour
         // TODO: make it work with WASD, INTRO SPACE AND NUM
         if (Input.GetKeyDown("right") || Input.GetKeyDown(KeyCode.D))
         {
+            if (isSlidingToLeft)
+            {
+                transform.localScale = new Vector2(-1f, 1f);
+                isSlidingToLeft = false;
+            }
             posNumber++;
             Move();
         }
         if (Input.GetKeyDown("left") || Input.GetKeyDown(KeyCode.A))
         {
+            if (!isSlidingToLeft)
+            {
+                transform.localScale = new Vector2(1f, 1f);
+                isSlidingToLeft = true;
+            }
             posNumber--;
             Move();
         }
@@ -70,7 +81,6 @@ public class CharacterController : MonoBehaviour
     {
         posNumber = Mathf.Clamp(posNumber, 0, 2);
         AudioManager.instance.Play("Slide");
-        // TODO: change orentation depending on side
         anim.SetTrigger("slide");
         transform.position = new Vector2 (positions[posNumber].position.x, transform.position.y);
     }
@@ -103,7 +113,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void StartingPosition()
+    private void ReturnToStartingPosition()
     {
         transform.position = positions[1].position;
     }

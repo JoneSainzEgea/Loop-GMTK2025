@@ -2968,6 +2968,7 @@ MonoBehaviour:
   - {fileID: 61228039}
   - {fileID: 1957154090}
   fullHeartSprite: {fileID: 978246845, guid: 468e5fe3f689adf4aa1cb5571f850090, type: 3}
+  bigFullHeartSprite: {fileID: 160714508, guid: 468e5fe3f689adf4aa1cb5571f850090, type: 3}
   emptyHeartSprite: {fileID: 21300000, guid: b879344ef86d20f44a5c9695d5854f6b, type: 3}
 --- !u!4 &1029066690
 Transform:
