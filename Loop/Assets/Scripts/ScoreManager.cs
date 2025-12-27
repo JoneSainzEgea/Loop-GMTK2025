@@ -25,6 +25,7 @@ public class ScoreManager : MonoBehaviour
     public static int currentHearts;
     [SerializeField] private List<Image> heartImages;
     [SerializeField] private Sprite fullHeartSprite;
+    [SerializeField] private Sprite bigFullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
 
     private void OnEnable()
@@ -54,6 +55,7 @@ public class ScoreManager : MonoBehaviour
     {
         currentHearts = totalHearts;
         UpdateHeartsDisplay();
+        StartCoroutine(HeartsAnimation());
     }
 
     void Update()
@@ -104,6 +106,33 @@ public class ScoreManager : MonoBehaviour
             int scoreINT = Mathf.FloorToInt(score);
             GameManager.instance.GameOver(scoreINT);
             return;
+        }
+    }
+
+    IEnumerator HeartsAnimation()
+    {
+        while (true)
+        {
+            for (int i = 0; i < currentHearts; i++)
+            {
+                heartImages[i].sprite = bigFullHeartSprite;
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < currentHearts; i++)
+            {
+                heartImages[i].sprite = fullHeartSprite;
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < currentHearts; i++)
+            {
+                heartImages[i].sprite = bigFullHeartSprite;
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < currentHearts; i++)
+            {
+                heartImages[i].sprite = fullHeartSprite;
+            }
+            yield return new WaitForSeconds(0.6f);
         }
     }
 

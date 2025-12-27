@@ -20,7 +20,7 @@ public class ObstacleCollider : MonoBehaviour
     {
         startPosition = data.initialPosCollider;
         endPosition = startPosition + Vector2.up * distanceUp;
-
+        timer = 0f;
         duration = data.duration;
     }
 
@@ -35,7 +35,8 @@ public class ObstacleCollider : MonoBehaviour
 
         if (t >= 1f)
         {
-            Destroy(transform.gameObject);
+            transform.gameObject.SetActive(false);
+            Debug.Log("Collider deactivated");
         }
     }
 

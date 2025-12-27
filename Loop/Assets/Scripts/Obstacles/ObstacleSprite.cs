@@ -18,8 +18,8 @@ public class ObstacleSprite : MonoBehaviour
     {
         duration = data.duration;
         curve = data.curve;
-
-        finalScale = transform.localScale;
+        timer = 0f;
+        finalScale = new Vector3 (1f,1f,1f);
         initialScale = transform.localScale/10f;
     }
 
@@ -39,7 +39,7 @@ public class ObstacleSprite : MonoBehaviour
 
         if (t >= 1f)
         {
-            Destroy(transform.root.gameObject);
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }
